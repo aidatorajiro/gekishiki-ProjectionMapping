@@ -6,11 +6,6 @@ int width  = 640;
 int height = 360;
 
 ofVideoGrabber videoGrabber;
-ofImage        face;
-ofxFaceTracker tracker;
-bool           isDetect; 
-hirokoPJObject mainobject;
-hirokoPJObject faceobject;
 
 //--------------------------------------------------------------
 ofxPanel gui;
@@ -38,23 +33,7 @@ void ofApp::setup(){
 	videoGrabber.setVerbose(true);
 	videoGrabber.initGrabber(width, height);
 	
-	tracker.setup();
-}
-
-//--------------------------------------------------------------
-void ofApp::detectFace() {
-	srand(time(NULL));
-	ofHttpResponse pictdata = ofLoadURL("https://graph.facebook.com/" + itos(abs(rand() * rand() % 10000000)) + "/picture?redirect=false&width=200");
-	while (pictdata.data.getText().find("UlIqmHJn-SK", 0) != string::npos) {
-		srand(time(NULL));
-		pictdata = ofLoadURL("https://graph.facebook.com/" + itos(abs(rand() * rand() % 10000000)) + "/picture?redirect=false&width=200");
-	}
-	
-	ofHttpResponse pict = ofLoadURL(replaceAll(regexpmatch(pictdata.data.getText().c_str(), "https:[^\"]+", 1)[0], "\\", ""));
-	face.loadImage(pict.data);
-	
-	tracker.reset();
-	isDetect = tracker.update(ofxCv::toCv(face));
+	objects.push_back(hirokoPJObject());
 }
 
 //--------------------------------------------------------------
@@ -63,24 +42,23 @@ void ofApp::update(){
 	if (videoGrabber.isFrameNew()) {
 		ofxCvColorImage color;
         color.setFromPixels(videoGrabber.getPixels(), width, height);
-        mainobject.setVerticesByImage(color, Rmin, Rmax, Gmin, Gmax, Bmin, Bmax);
+        objects[0].setVerticesByImage(color, Rmin, Rmax, Gmin, Gmax, Bmin, Bmax);
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    mainobject.update();
-    gui.draw();
-	
-	face.draw(0, 0);
-	if (isDetect) {
-		tracker.getImageMesh().draw();
+	for (int i = 0; i < objects.size(); i++) {
+		objects[i].update();
 	}
+    gui.draw();
 }
 
 //--------------------------------------------------------------
+detectFace thread;
 void ofApp::keyPressed(int key){
-	ofApp::detectFace();
+	//df.startThread(true, false);
+	//df.letrun = true;
 }
 
 //--------------------------------------------------------------

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "utils.h"
 #include "hirokoPJObject.h"
+#include "detectFace.h"
 #include "ofMain.h"
 #include "ofxGui.h"
-#include "ofxFaceTracker.h"
 using namespace std;
 using namespace utils;
 
@@ -22,4 +22,6 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+	
+	vector<hirokoPJObject> objects;
 };
