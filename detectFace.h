@@ -2,5 +2,7 @@
 #include "ofxFaceTracker.h"
 
 class detectFace : public ofThread {
-	void threadedFunction();
+	void threadedFunction() {
+		
+	}
 };
