@@ -3,8 +3,6 @@ using namespace std;
 using namespace utils;
 
 void detectFace::threadedFunction() {
-	obj = hirokoPJObject();
-	
 	tracker.setup();
 	
 	srand(time(NULL));
