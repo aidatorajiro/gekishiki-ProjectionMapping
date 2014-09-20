@@ -1,8 +1,5 @@
-#include "utils.h"
-#include "ofxFaceTracker.h"
+#include "ofMain.h"
 
 class detectFace : public ofThread {
-	void threadedFunction() {
-		
-	}
+    void threadedFunction();
 };

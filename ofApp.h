@@ -10,7 +10,6 @@ using namespace utils;
 class ofApp : public ofBaseApp {
 public:
 	void setup();
-	void detectFace();
 	void update();
 	void draw();
 	void keyPressed(int key);
