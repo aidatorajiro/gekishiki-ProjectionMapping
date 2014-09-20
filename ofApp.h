@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "utils.h"
 #include "hirokoPJObject.h"
@@ -9,6 +10,8 @@ using namespace utils;
 
 class ofApp : public ofBaseApp {
 public:
+	detectFace thread;
+	
 	void setup();
 	void update();
 	void draw();

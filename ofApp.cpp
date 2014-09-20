@@ -51,14 +51,15 @@ void ofApp::draw(){
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i].update();
 	}
+	if (!thread.isThreadRunning()) {
+		thread.obj.update();
+	}
     gui.draw();
 }
 
 //--------------------------------------------------------------
-detectFace thread;
 void ofApp::keyPressed(int key){
-	//df.startThread(true, false);
-	//df.letrun = true;
+	thread.startThread(true, false);
 }
 
 //--------------------------------------------------------------
